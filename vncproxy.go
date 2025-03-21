@@ -91,6 +91,13 @@ func NewVNCProxy(localAddr, remoteAddr, password string) *VNCProxy {
 	}
 }
 
+func (p *VNCProxy) GetPassword() string {
+	p.passwordMutex.RLock()
+	password := p.password
+	p.passwordMutex.RUnlock()
+	return password
+}
+
 // SetPassword 设置新的密码并断开使用旧密码的连接
 func (p *VNCProxy) SetPassword(newPassword string) {
 	p.passwordMutex.Lock()
